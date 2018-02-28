@@ -1,11 +1,39 @@
-class SimpleCipher {
+const aCode = "a".charCodeAt(0);
+const zCode = "z".charCodeAt(0);
+
+export default class SimpleCipher {
   constructor(key) {
-    this.key = key === undefined ? this.generateKey() : key;
-    if (!this.validateKey(this.key)) {
+    this._key = key === undefined ? this._generateKey() : key;
+    if (!this._validateKey(this._key)) {
       throw "Bad key";
     }
   }
-  generateKey() {
+
+  get key() {
+    return this._key;
+  }
+
+  encode(target) {
+    return [...target].map((ch, i) => {
+      let code = ch.charCodeAt() + this._getKeyOffset(i);
+      if (code > zCode) {
+        code -= 26;
+      }
+      return String.fromCharCode(code);
+    }).join("");
+  }
+
+  decode(target) {
+    return [...target].map((ch, i) => {
+      let code = ch.charCodeAt() - this._getKeyOffset(i);
+      if (code < aCode) {
+        code += 26;
+      }
+      return String.fromCharCode(code);
+    }).join("");
+  }
+
+  _generateKey() {
     const possible = "abcdefghijklmnopqrstuvwxyz";
     let key = "";
     for (let i = 0; i < 10; i++) {
@@ -13,34 +41,14 @@ class SimpleCipher {
     }
     return key;
   }
-  validateKey(key) {
+
+  _validateKey(key) {
     return key.match(/^[a-z]+$/);
   }
-  getKeyOffset(i) {
-    return this.key[i % this.key.length].charCodeAt(0) - 97;
-  }
-  encode(target) {
-    let encoded = "";
-    for (let i = 0; i < target.length; i++) {
-      let code = target.charCodeAt(i) + this.getKeyOffset(i);
-      if (code > 122) {
-        code -= 26;
-      }
-      encoded += String.fromCharCode(code);
-    }
-    return encoded;
-  }
-  decode(target) {
-    let decoded = "";
-    for (let i = 0; i < target.length; i++) {
-      let code = target.charCodeAt(i) - this.getKeyOffset(i);
-      if (code < 97) {
-        code += 26;
-      }
-      decoded += String.fromCharCode(code);
-    }
-    return decoded;
-  }
-}
 
-export default SimpleCipher;
+  _getKeyOffset(i) {
+    return this._key[i % this._key.length].charCodeAt(0) - aCode;
+  }
+
+
+}
