@@ -10,12 +10,9 @@ class Complement
       "A" => "U",
   }
   def self.of_dna(dna)
-    rna = dna.chars.map { |ch| self::TRANSCRIPTION_MAP[ch] }.join("")
-    if rna.size == dna.size
-      rna
-    else
-      ""
-    end
+    dna.chars.map do |ch|
+      TRANSCRIPTION_MAP[ch] or break []
+    end.join("")
   end
 end
 
