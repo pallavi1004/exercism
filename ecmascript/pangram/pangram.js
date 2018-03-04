@@ -5,22 +5,7 @@ export default class Pangram {
   }
 
   isPangram() {
-    let used = new Map();
-    [...this._sentence].map((ch) => {
-      const normalized = this._normalizeCharactor(ch);
-      if (normalized !== null) {
-        used.set(normalized, true);
-      }
-    });
-    return used.size === 26;
-  }
-
-  _normalizeCharactor(ch) {
-    ch = ch.toLowerCase();
-    if (ch.match(/[a-z]/)) {
-      return ch;
-    } else {
-      return null;
-    }
+    const normalized = this._sentence.toLowerCase().replace(/[^a-z]/g, "");
+    return new Set([...normalized]).size === 26;
   }
 }
