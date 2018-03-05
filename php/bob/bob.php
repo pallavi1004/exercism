@@ -1,7 +1,8 @@
 <?php
 class Bob {
     public function respondTo($phrase) {
-        if ($this->isNotSayingAnything($phrase)) {
+        $phrase = trim($phrase);
+        if (empty($phrase)) {
             return "Fine. Be that way!";
         } elseif ($this->isYell($phrase) && $this->isQuestion($phrase)) {
             return "Calm down, I know what I'm doing!";
@@ -14,17 +15,12 @@ class Bob {
         return "Whatever.";
     }
 
-    private function isNotSayingAnything($phrase) {
-        return empty($phrase)
-            || preg_match("/^\s+$/", $phrase) === 1;
-    }
-
     private function isYell($phrase) {
         return preg_match("/[a-z]/", $phrase) !== 1
             && preg_match("/[A-Z]/", $phrase) === 1;
     }
 
     private function isQuestion($phrase) {
-        return preg_match("/\?\s*$/", $phrase) === 1;
+        return preg_match("/\?$/", $phrase) === 1;
     }
 }
