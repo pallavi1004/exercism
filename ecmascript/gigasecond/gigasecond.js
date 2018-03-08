@@ -1,6 +1,6 @@
 export default class Gigasecond {
   constructor(date) {
-    this._date = new Date(date.getTime() + 1000000000000)
+    this._date = new Date(date.getTime() + 10**12)
   }
 
   date() {
