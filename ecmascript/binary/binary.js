@@ -8,11 +8,10 @@ export default class Binary {
       return 0;
     }
 
-    let decimal = 0;
-    [...this._binary].reverse().forEach((value, index) => {
-      decimal += 2**index * parseInt(value);
-    })
-    return decimal;
+    return [...this._binary]
+      .reverse()
+      .map((value, index) => 2**index * parseInt(value) )
+      .reduce((sum, num) => sum + num, 0);
   }
 
   _isValid() {
