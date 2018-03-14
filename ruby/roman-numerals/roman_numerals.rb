@@ -6,11 +6,17 @@ class Integer
   module ConvertRoman
     CONVERT_TABLE = {
         1000 => "M",
+        900 => "CM",
         500 => "D",
+        400 => "CD",
         100 => "C",
+        90 => "XC",
         50 => "L",
+        40 => "XL",
         10 => "X",
+        9 => "IX",
         5 => "V",
+        4 => "IV",
         1 => "I",
     }
 
@@ -20,27 +26,8 @@ class Integer
         CONVERT_TABLE.each do |n, r|
           roman << r * (number / n)
           number %= n
-
-          basic = calc_basic(n)
-          if number >= (n - basic)
-            roman << CONVERT_TABLE[basic] + r
-            number -= n - basic
-            next
-          end
         end
         roman
-      end
-
-      def calc_basic(number)
-        n = number
-        while n > 10
-          n /= 10
-        end
-        if n == 1
-          number / 10
-        else
-          number / n
-        end
       end
     end
   end
