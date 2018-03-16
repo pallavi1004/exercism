@@ -13,10 +13,10 @@ class Prime
   end
 
   def self.prime?(num)
-    for n in 2..Math.sqrt(num).floor do
-      return false if num % n == 0
-    end
-    true
+    return true if num == 2
+    return false if num.even?
+    factor_limit = Math.sqrt(num).floor
+    !(3..factor_limit).step(2).any? { |n| num % n == 0 }
   end
 end
 
