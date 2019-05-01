@@ -13,7 +13,7 @@ public class PangramChecker {
 
     private Stream<Character> alphabet()
     {
+
         return IntStream.rangeClosed('a', 'z').mapToObj(i -> (char)i);
     }
-
 }
