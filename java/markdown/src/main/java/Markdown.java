@@ -57,17 +57,17 @@ class Markdown {
         return lines;
     }
 
-    private String parseHeader(String markdown) {
+    private String parseHeader(String markdown)
+    {
         int count = 0;
-
-        for (int i = 0; i < markdown.length() && markdown.charAt(i) == '#'; i++) 
-        {
+        while (markdown.charAt(count) == '#') {
             count++;
         }
 
-        if (count == 0) { return null; }
-
-        return "<h" + Integer.toString(count) + ">" + markdown.substring(count + 1) + "</h" + Integer.toString(count)+ ">";
+        if (count == 0) {
+            return null;
+        }
+        return String.format("<h%d>%s</h%d>", count, markdown.substring(count + 1), count);
     }
 
     private String parseListItem(String markdown) {
