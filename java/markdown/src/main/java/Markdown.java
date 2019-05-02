@@ -10,8 +10,7 @@ class Markdown {
   
     String parse(String markdown)
     {
-        String[] lines = markdown.split("\n");
-        List<String> results = Arrays.stream(lines)
+        List<String> results = Arrays.stream(markdown.split("\n"))
             .map(l -> parseLine(l))
             .collect(Collectors.toList());
 
