@@ -1,22 +1,21 @@
 // Refactor by separated complex ul logic
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 class Markdown {
   
-    String parse(String markdown) {
-
+    String parse(String markdown)
+    {
         String[] lines = markdown.split("\n");
+        List<String> results = Arrays.stream(lines)
+            .map(l -> parseLine(l))
+            .collect(Collectors.toList());
 
-        String result = "";
-        ArrayList<String> results = new ArrayList();
-
-        for (String line : lines) {
-            line = parseLine(line);
-            results.add(parseSomeSymbols(line));
-        }
-
-        return String.join("", addUl(results.toArray(String[]::new)));
+        return String.join("", addUl(results));
     }
 
     private String parseLine(String line)
@@ -28,30 +27,34 @@ class Markdown {
         } else {
             line = parseParagraph(line);
         }
-        return line;
+        return parseSomeSymbols(line);
     }
 
-    private String[] addUl(String[] markdowns)
+    private List<String> addUl(List<String> lines)
     {
         boolean activeList = false;
-        ArrayList<String> results = new ArrayList();
-        for (String markdown : markdowns) {
-            if (markdown.startsWith("<li>")) {
+        ListIterator<String> iterator = lines.listIterator();
+        while (iterator.hasNext()) {
+            String line = iterator.next();
+            if (line.startsWith("<li>")) {
                 if (!activeList) {
-                    results.add("<ul>");
+                    iterator.remove();
+                    iterator.add("<ul>");
+                    iterator.add(line);
                     activeList = true;
                 }
             } else if (activeList) {
-                results.add("</ul>");
+                iterator.remove();
+                iterator.add("</ul>");
+                iterator.add(line);
                 activeList = false;
             }
-            results.add(markdown);
         }
 
         if (activeList) {
-            results.add("</ul>");
+            iterator.add("</ul>");
         }
-        return results.toArray(String[]::new);
+        return lines;
     }
 
     private String parseHeader(String markdown) {
