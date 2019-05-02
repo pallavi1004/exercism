@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MarkdownTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2019-05-02T08:28:39" hostname="kitabataketatsuyanoMacBook-puro.local" time="0.028">
+<testsuite name="MarkdownTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2019-05-02T08:57:18" hostname="kitabataketatsuyanoMacBook-puro.local" time="0.026">
   <properties/>
-  <testcase name="normalTextAsAParagraph" classname="MarkdownTest" time="0.008"/>
-  <testcase name="withH1HeaderLevel" classname="MarkdownTest" time="0.013"/>
+  <testcase name="normalTextAsAParagraph" classname="MarkdownTest" time="0.007"/>
+  <testcase name="withH1HeaderLevel" classname="MarkdownTest" time="0.012"/>
   <testcase name="normalItalicsAndBoldText" classname="MarkdownTest" time="0.001"/>
   <testcase name="withH2HeaderLevel" classname="MarkdownTest" time="0.0"/>
   <testcase name="markdownSymbolsInTheParagraphTextShouldNotBeInterpreted" classname="MarkdownTest" time="0.0"/>
   <testcase name="withH6HeaderLevel" classname="MarkdownTest" time="0.0"/>
-  <testcase name="unorderedLists" classname="MarkdownTest" time="0.0"/>
-  <testcase name="aLittleBitOfEverything" classname="MarkdownTest" time="0.0"/>
-  <testcase name="markdownSymbolsInTheListItemTextShouldNotBeInterpreted" classname="MarkdownTest" time="0.001"/>
+  <testcase name="unorderedLists" classname="MarkdownTest" time="0.001"/>
+  <testcase name="aLittleBitOfEverything" classname="MarkdownTest" time="0.001"/>
+  <testcase name="markdownSymbolsInTheListItemTextShouldNotBeInterpreted" classname="MarkdownTest" time="0.0"/>
   <testcase name="markdownSymbolsInTheHeaderShouldNotBeInterpreted" classname="MarkdownTest" time="0.0"/>
   <testcase name="markdownUnorderedListsCloseProperlyWithPrecedingAndFollowingLines" classname="MarkdownTest" time="0.001"/>
   <testcase name="boldText" classname="MarkdownTest" time="0.0"/>

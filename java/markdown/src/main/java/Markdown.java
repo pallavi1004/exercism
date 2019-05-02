@@ -9,23 +9,24 @@ class Markdown {
         String result = "";
         ArrayList<String> results = new ArrayList();
 
-        for (int i = 0; i < lines.length; i++) {
-
-            String theLine = parseHeader(lines[i]);
-          
-            if (theLine == null) {
-              theLine = parseListItem(lines[i]);
-            }
-    
-            if (theLine == null) 
-            {
-                theLine = parseParagraph(lines[i]);
-            }
-
-            results.add(theLine);
+        for (String line : lines) {
+            line = parseLine(line);
+            results.add(parseSomeSymbols(line));
         }
 
         return String.join("", addUl(results.toArray(String[]::new)));
+    }
+
+    private String parseLine(String line)
+    {
+        if (line.matches("^#+\\s.*")) {
+            line = parseHeader(line);
+        } else if (line.matches("^\\*\\s.*")) {
+            line = parseListItem(line);
+        } else {
+            line = parseParagraph(line);
+        }
+        return line;
     }
 
     private String[] addUl(String[] markdowns)
@@ -66,8 +67,7 @@ class Markdown {
 
     private String parseListItem(String markdown) {
         if (markdown.startsWith("*")) {
-            String skipAsterisk = markdown.substring(2);
-            String listItemString = parseSomeSymbols(skipAsterisk);
+            String listItemString = markdown.substring(2);
             return "<li>" + listItemString + "</li>";
         }
 
@@ -75,7 +75,7 @@ class Markdown {
     }
 
     private String parseParagraph(String markdown) {
-        return "<p>" + parseSomeSymbols(markdown) + "</p>";
+        return "<p>" + markdown + "</p>";
     }
 
     private String parseSomeSymbols(String markdown) {
