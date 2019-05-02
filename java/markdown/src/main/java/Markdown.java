@@ -1,3 +1,5 @@
+// Refactor by separated complex ul logic
+
 import java.util.ArrayList;
 
 class Markdown {
@@ -19,9 +21,9 @@ class Markdown {
 
     private String parseLine(String line)
     {
-        if (line.matches("^#+\\s.*")) {
+        if (line.startsWith("#")) {
             line = parseHeader(line);
-        } else if (line.matches("^\\*\\s.*")) {
+        } else if (line.startsWith("*")) {
             line = parseListItem(line);
         } else {
             line = parseParagraph(line);
@@ -34,7 +36,7 @@ class Markdown {
         boolean activeList = false;
         ArrayList<String> results = new ArrayList();
         for (String markdown : markdowns) {
-            if (markdown.matches("(<li>).*")) {
+            if (markdown.startsWith("<li>")) {
                 if (!activeList) {
                     results.add("<ul>");
                     activeList = true;
@@ -79,13 +81,6 @@ class Markdown {
     }
 
     private String parseSomeSymbols(String markdown) {
-
-        String lookingFor = "__(.+)__";
-        String update = "<strong>$1</strong>";
-        String workingOn = markdown.replaceAll(lookingFor, update);
-
-        lookingFor = "_(.+)_";
-        update = "<em>$1</em>";
-        return workingOn.replaceAll(lookingFor, update);
+        return markdown.replaceAll("__(.+)__", "<strong>$1</strong>").replaceAll("_(.+)_", "<em>$1</em>");
     }
 }
