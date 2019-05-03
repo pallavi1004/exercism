@@ -15,14 +15,10 @@ function parseLine($line)
     if (!parseHeader($line) && !parseListItem($line)) {
         $line = "<p>{$line}</p>";
     }
-    parsePartial($line);
-    return $line;
-}
 
-function parsePartial(&$line)
-{
     $line = preg_replace("/__(.+)__/", "<em>$1</em>", $line);
     $line = preg_replace("/_(.+)_/", "<i>$1</i>", $line);
+    return $line;
 }
 
 function parseHeader(&$line)
