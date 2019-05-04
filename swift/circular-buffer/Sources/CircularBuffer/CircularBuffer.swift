@@ -10,6 +10,7 @@ class CircularBuffer<T>
     var buffer: [T?]
     var readIndex: Int = 0
     var writeIndex: Int = 0
+
     init(capacity: Int)
     {
         self.buffer = [T?](repeating: nil, count: capacity)
@@ -17,23 +18,17 @@ class CircularBuffer<T>
 
     func read() throws -> T
     {
-        if let value = buffer[readIndex] {
-            buffer[readIndex] = nil;
-            readIndex = nextIndex(readIndex)
-            return value
-        } else {
-            throw CircularBufferError.bufferEmpty
-        }
+        guard let value = buffer[readIndex] else { throw CircularBufferError.bufferEmpty }
+        buffer[readIndex] = nil;
+        readIndex = nextIndex(readIndex)
+        return value
     }
 
     func write(_ value: T) throws
     {
-        if buffer[writeIndex] != nil {
-            throw CircularBufferError.bufferFull
-        } else {
-            buffer[writeIndex] = value
-            writeIndex = nextIndex(writeIndex)
-        }
+        guard buffer[writeIndex] == nil else { throw CircularBufferError.bufferFull }
+        buffer[writeIndex] = value
+        writeIndex = nextIndex(writeIndex)
     }
 
     func overwrite(_ value: T)
