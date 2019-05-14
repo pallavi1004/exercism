@@ -17,8 +17,8 @@ class Yacht {
     {
         if (combinations.keySet().contains(yachtCategory)) {
             score = calcCombinations(dice, yachtCategory);
-        } else {
-            score = 50;
+        } else if (yachtCategory == YachtCategory.YACHT) {
+            score = clacYatch(dice);
         }
     }
 
@@ -32,6 +32,19 @@ class Yacht {
             }
         }
         return count * targetNumber;
+    }
+
+    int clacYatch(int[] dice)
+    {
+        boolean yatch = true;
+        int number = dice[0];
+        for (int i = 1; i < dice.length; i++) {
+            if (dice[i] != number) {
+                yatch = false;
+                break;
+            }
+        }
+        return yatch ? 50 : 0;
     }
 
     int score()
