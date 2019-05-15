@@ -46,15 +46,8 @@ class Yacht {
 
     int calcYatch(int[] dice)
     {
-        boolean yatch = true;
-        int number = dice[0];
-        for (int i = 1; i < dice.length; i++) {
-            if (dice[i] != number) {
-                yatch = false;
-                break;
-            }
-        }
-        return yatch ? 50 : 0;
+        HashMap<Integer, Integer>map = map(dice);
+        return map.size() == 1 ? 50: 0;
     }
 
     int calcFullHouse(int[] dice)
