@@ -26,6 +26,8 @@ class Yacht {
             score = calcFourOfAKind(dice);
         } else if (yachtCategory == YachtCategory.LITTLE_STRAIGHT) {
             score = calcLittleStraight(dice);
+        } else if (yachtCategory == YachtCategory.BIG_STRAIGHT) {
+            score = calcBigStraight(dice);
         }
     }
 
@@ -78,6 +80,13 @@ class Yacht {
     {
         HashMap<Integer, Integer>map = map(dice);
         return map.size() == 5 && !map.keySet().contains(6) ?
+            30 : 0;
+    }
+
+    int calcBigStraight(int[] dice)
+    {
+        HashMap<Integer, Integer>map = map(dice);
+        return map.size() == 5 && !map.keySet().contains(1) ?
             30 : 0;
     }
 
