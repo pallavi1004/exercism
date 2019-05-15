@@ -28,6 +28,8 @@ class Yacht {
             score = calcLittleStraight(dice);
         } else if (yachtCategory == YachtCategory.BIG_STRAIGHT) {
             score = calcBigStraight(dice);
+        } else if (yachtCategory == YachtCategory.CHOICE) {
+            score = calcChoice(dice);
         }
     }
 
@@ -88,6 +90,11 @@ class Yacht {
         HashMap<Integer, Integer>map = map(dice);
         return map.size() == 5 && !map.keySet().contains(1) ?
             30 : 0;
+    }
+
+    int calcChoice(int [] dice)
+    {
+        return Arrays.stream(dice).sum();
     }
 
     /**
