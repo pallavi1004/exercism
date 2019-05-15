@@ -109,21 +109,21 @@ public class YachtTest {
         assertEquals(0, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void fourOfAKind() {
         Yacht yacht = new Yacht(new int[]{ 6, 6, 4, 6, 6 }, YachtCategory.FOUR_OF_A_KIND);
         assertEquals(24, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void yachtCanBeScoredAsFourOfAKind() {
         Yacht yacht = new Yacht(new int[]{ 3, 3, 3, 3, 3 }, YachtCategory.FOUR_OF_A_KIND);
         assertEquals(12, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void fullHouseIsNotFourOfAKind() {
         Yacht yacht = new Yacht(new int[]{ 3, 3, 3, 5, 5 }, YachtCategory.FOUR_OF_A_KIND);
