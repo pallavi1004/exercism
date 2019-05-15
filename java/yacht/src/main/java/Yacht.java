@@ -24,6 +24,8 @@ class Yacht {
             score = calcFullHouse(dice);
         } else if (yachtCategory == YachtCategory.FOUR_OF_A_KIND) {
             score = calcFourOfAKind(dice);
+        } else if (yachtCategory == YachtCategory.LITTLE_STRAIGHT) {
+            score = calcLittleStraight(dice);
         }
     }
 
@@ -70,6 +72,13 @@ class Yacht {
             }
         }
         return 0;
+    }
+
+    int calcLittleStraight(int[] dice)
+    {
+        HashMap<Integer, Integer>map = map(dice);
+        return map.size() == 5 && !map.keySet().contains(6) ?
+            30 : 0;
     }
 
     /**
