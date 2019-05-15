@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +19,15 @@ class Yacht {
         if (combinations.keySet().contains(yachtCategory)) {
             score = calcCombinations(dice, yachtCategory);
         } else if (yachtCategory == YachtCategory.YACHT) {
-            score = clacYatch(dice);
+            score = calcYatch(dice);
+        } else if (yachtCategory == YachtCategory.FULL_HOUSE) {
+            score = calcFullHouse(dice);
         }
+    }
+
+    int score()
+    {
+        return score;
     }
 
     int calcCombinations(int[] dice, YachtCategory yachtCategory)
@@ -34,7 +42,7 @@ class Yacht {
         return count * targetNumber;
     }
 
-    int clacYatch(int[] dice)
+    int calcYatch(int[] dice)
     {
         boolean yatch = true;
         int number = dice[0];
@@ -47,8 +55,21 @@ class Yacht {
         return yatch ? 50 : 0;
     }
 
-    int score()
+    int calcFullHouse(int[] dice)
     {
-        return score;
+        HashMap<Integer, Integer>map = new HashMap<>();
+        for (int d: dice) {
+            if (map.containsKey(d)) {
+                map.put(d, map.get(d) + 1);
+            } else {
+                map.put(d, 1);
+            }
+        }
+
+        if (map.size() == 2 && map.values().contains(2)) {
+            return Arrays.stream(dice).sum();
+        } else {
+            return 0;
+        }
     }
 }

@@ -74,35 +74,35 @@ public class YachtTest {
         assertEquals(6, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void fullHouseTwoSmallThreeBig() {
         Yacht yacht = new Yacht(new int[]{ 2, 2, 4, 4, 4 }, YachtCategory.FULL_HOUSE);
         assertEquals(16, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void fullHouseThreeSmallTwoBig() {
         Yacht yacht = new Yacht(new int[]{ 5, 3, 3, 5, 3 }, YachtCategory.FULL_HOUSE);
         assertEquals(19, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void twoPairIsNotAFullHouse() {
         Yacht yacht = new Yacht(new int[]{ 2, 2, 4, 4, 5 }, YachtCategory.FULL_HOUSE);
         assertEquals(0, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void fourOfAKindIsNotAFullHouse() {
         Yacht yacht = new Yacht(new int[]{ 1, 4, 4, 4, 4 }, YachtCategory.FULL_HOUSE);
         assertEquals(0, yacht.score());
     }
 
-    @Ignore("Remove to run test")
+//    @Ignore("Remove to run test")
     @Test
     public void yachtIsNotAFullHouse() {
         Yacht yacht = new Yacht(new int[]{ 2, 2, 2, 2, 2 }, YachtCategory.FULL_HOUSE);
