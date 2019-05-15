@@ -72,6 +72,9 @@ class Yacht {
         return 0;
     }
 
+    /**
+     * map of number => count
+     */
     private HashMap<Integer, Integer> map(int[] dice)
     {
         HashMap<Integer, Integer>map = new HashMap<>();
