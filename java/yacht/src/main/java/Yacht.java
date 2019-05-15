@@ -5,31 +5,46 @@ import java.util.Map;
 class Yacht {
 
     private int score;
-    private Map<YachtCategory, Integer> combinations = new HashMap<YachtCategory, Integer>() {
-        {put(YachtCategory.ONES, 1);}
-        {put(YachtCategory.TWOS, 2);}
-        {put(YachtCategory.THREES, 3);}
-        {put(YachtCategory.FOURS, 4);}
-        {put(YachtCategory.FIVES, 5);}
-        {put(YachtCategory.SIXES, 6);}
-    };
 
     Yacht(int[] dice, YachtCategory yachtCategory)
     {
-        if (combinations.keySet().contains(yachtCategory)) {
-            score = calcCombinations(dice, yachtCategory);
-        } else if (yachtCategory == YachtCategory.YACHT) {
-            score = calcYatch(dice);
-        } else if (yachtCategory == YachtCategory.FULL_HOUSE) {
-            score = calcFullHouse(dice);
-        } else if (yachtCategory == YachtCategory.FOUR_OF_A_KIND) {
-            score = calcFourOfAKind(dice);
-        } else if (yachtCategory == YachtCategory.LITTLE_STRAIGHT) {
-            score = calcLittleStraight(dice);
-        } else if (yachtCategory == YachtCategory.BIG_STRAIGHT) {
-            score = calcBigStraight(dice);
-        } else if (yachtCategory == YachtCategory.CHOICE) {
-            score = calcChoice(dice);
+        switch (yachtCategory) {
+            case ONES:
+                score = calcCombinations(dice, 1);
+                break;
+            case TWOS:
+                score = calcCombinations(dice, 2);
+                break;
+            case THREES:
+                score = calcCombinations(dice, 3);
+                break;
+            case FOURS:
+                score = calcCombinations(dice, 4);
+                break;
+            case FIVES:
+                score = calcCombinations(dice, 5);
+                break;
+            case SIXES:
+                score = calcCombinations(dice, 6);
+                break;
+            case YACHT:
+                score = calcYatch(dice);
+                break;
+            case FULL_HOUSE:
+                score = calcFullHouse(dice);
+                break;
+            case FOUR_OF_A_KIND:
+                score = calcFourOfAKind(dice);
+                break;
+            case LITTLE_STRAIGHT:
+                score = calcLittleStraight(dice);
+                break;
+            case BIG_STRAIGHT:
+                score = calcBigStraight(dice);
+                break;
+            case CHOICE:
+                score = calcChoice(dice);
+                break;
         }
     }
 
@@ -38,9 +53,8 @@ class Yacht {
         return score;
     }
 
-    int calcCombinations(int[] dice, YachtCategory yachtCategory)
+    int calcCombinations(int[] dice, int targetNumber)
     {
-        int targetNumber = combinations.get(yachtCategory);
         int count = 0;
         for (int d: dice) {
             if (d == targetNumber) {
