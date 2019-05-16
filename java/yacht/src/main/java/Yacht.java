@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 class Yacht {
 
@@ -53,12 +52,12 @@ class Yacht {
         return score;
     }
 
-    int calcCombinations(int[] dice, int targetNumber)
+    int calcCombinations(int[] dice, int number)
     {
         return Arrays
             .stream(dice)
-            .map(d -> d == targetNumber ? 1: 0)
-            .sum() * targetNumber;
+            .map(d -> d == number ? 1: 0)
+            .sum() * number;
     }
 
     int calcYatch(int[] dice)
