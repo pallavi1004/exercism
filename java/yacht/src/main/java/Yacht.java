@@ -55,13 +55,10 @@ class Yacht {
 
     int calcCombinations(int[] dice, int targetNumber)
     {
-        int count = 0;
-        for (int d: dice) {
-            if (d == targetNumber) {
-                count++;
-            }
-        }
-        return count * targetNumber;
+        return Arrays
+            .stream(dice)
+            .map(d -> d == targetNumber ? 1: 0)
+            .sum() * targetNumber;
     }
 
     int calcYatch(int[] dice)
