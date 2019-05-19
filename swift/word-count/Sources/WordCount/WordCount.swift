@@ -8,24 +8,16 @@ class WordCount
         self.phrase = words
     }
 
-    func count() -> Dictionary<String, Int>
+    func count() -> [String: Int]
     {
-        var counts : Dictionary<String, Int> = [:]
-        let words =  phrase
+        return phrase
             .split(separator:" ")
             .map { String($0) }
             .map { normalize($0) }
             .filter { isWord($0) }
-
-        for word in words {
-            if let count = counts[word] {
-                counts[word] = count + 1
-            } else {
-                counts[word] = 1;
+            .reduce(into: [:]) { result, word in
+                result[word, default: 0] += 1
             }
-        }
-
-        return counts
     }
 
     private func normalize(_ word: String) -> String
