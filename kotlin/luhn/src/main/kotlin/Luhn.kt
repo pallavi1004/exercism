@@ -1,8 +1,8 @@
 object Luhn {
 
     fun isValid(candidate: String): Boolean {
-        val arranged = candidate.trim().replace(" ", "")
-        if (arranged.length <= 1 || !arranged.matches("\\d+".toRegex())) {
+        val arranged = candidate.filterNot { it.isWhitespace() }
+        if (arranged.length <= 1 || !arranged.all { it.isDigit() }) {
             return false
         }
 
