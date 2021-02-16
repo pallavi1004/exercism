@@ -3,16 +3,18 @@ class Matrix {
   columns: number[][] = []
 
   constructor(matrixString: string) {
-    matrixString.split("\n").forEach(rowStr => {
-      this.rows.push(rowStr.split(" ").map(c => Number(c)))
-    })
+    this.rows = matrixString
+        .split("\n")
+        .map(rowString =>
+            rowString
+                .split(/\s+/)
+                .map(n => Number(n))
+        )
 
-    for (let c = 0; c < this.rows[0].length; c++) {
-      this.columns.push([])
-      for (let r = 0; r < this.rows.length; r++) {
-        this.columns[c].push(this.rows[r][c])
-      }
-    }
+    this.columns = this.rows[0]
+        .map((_, colIndex) =>
+          this.rows.map(row => row[colIndex])
+        )
   }
 }
 
