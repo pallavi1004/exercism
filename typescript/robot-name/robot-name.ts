@@ -1,6 +1,3 @@
-function getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
-}
 
 export default class Robot {
 
@@ -18,17 +15,22 @@ export default class Robot {
 
     private static readonly names: string[] = Robot.generateNames()
 
-    private static generateAvailableNameIndexes(): number[] {
-        return Array.from(Robot.names.keys())
+    private static generateNameIndexesStack(): number[] {
+        const array = Array.from(Robot.names.keys())
+        // shuffle
+        for(let i = array.length - 1; i > 0; i--){
+            const r = Math.floor(Math.random() * (i + 1));
+            const tmp = array[i];
+            array[i] = array[r];
+            array[r] = tmp;
+        }
+        return array
     }
 
-    private static availableNameIndexes: number[] = Robot.generateAvailableNameIndexes()
+    private static nameIndexesStack: number[] = Robot.generateNameIndexesStack()
 
     private static getNameIndex(): number {
-        const i = getRandomInt(Robot.availableNameIndexes.length)
-        const ret = Robot.availableNameIndexes[i]
-        Robot.availableNameIndexes.splice(i, 1)
-        return ret
+        return <number>Robot.nameIndexesStack.shift()
     }
 
 
@@ -43,12 +45,11 @@ export default class Robot {
     }
 
     public resetName(): void {
-        const oldNameIndex = this.nameIndex
+        Robot.nameIndexesStack.push(this.nameIndex)
         this.nameIndex = Robot.getNameIndex()
-        Robot.availableNameIndexes.push(oldNameIndex)
     }
 
     public static releaseNames(): void {
-        Robot.availableNameIndexes = Robot.generateAvailableNameIndexes()
+        Robot.nameIndexesStack = Robot.generateNameIndexesStack()
     }
 }
