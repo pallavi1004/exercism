@@ -15,39 +15,27 @@ export default class AtbashCipher {
         }
     })()
 
-    private static encodeReducer(ciphered: string[], char: string): string[] {
-        if (AtbashCipher.ENCODER.has(char)) {
-            return [...ciphered, AtbashCipher.ENCODER.get(char)!]
-        } else {
-            return ciphered
-        }
-    }
-
-    private static decodeReducer(ciphered: string[], char: string): string[] {
-        if (AtbashCipher.DECODER.has(char)) {
-            return [...ciphered, AtbashCipher.DECODER.get(char)!]
-        } else {
-            return ciphered
-        }
-    }
-
-    private static divideByFiveReducer(ciphered: string[], char: string, i: number): string[] {
-        return (i != 0 && i % 5 == 0) ? [...ciphered, " ", char] : [...ciphered, char]
-    }
-
     public encode(original: string): string {
         return original
             .toLowerCase()
-            .split('')
-            .reduce(AtbashCipher.encodeReducer, [])
-            .reduce(AtbashCipher.divideByFiveReducer, [])
-            .join('')
+            .replace(/./g, (char) => {
+                if (AtbashCipher.ENCODER.has(char)) {
+                    return AtbashCipher.ENCODER.get(char)!
+                } else {
+                    return ''
+                }
+            })
+            .match(/.{1,5}/g)!
+            .join(' ')
     }
 
     public decode(ciphered: string): string {
-        return ciphered
-            .split('')
-            .reduce(AtbashCipher.decodeReducer, [])
-            .join('')
+        return ciphered.replace(/./g, (char) => {
+            if (AtbashCipher.DECODER.has(char)) {
+                return AtbashCipher.DECODER.get(char)!
+            } else {
+                return ''
+            }
+        })
     }
 }
