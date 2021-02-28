@@ -16,8 +16,8 @@ class State {
 }
 
 export class TwoBucket {
-    private _goalBucket?: Bucket
-    private _otherBucket?: number
+    public goalBucket?: string
+    public otherBucket?: number
     constructor(
         private readonly bucketOne: number,
         private readonly bucketTwo: number,
@@ -26,40 +26,17 @@ export class TwoBucket {
 
     public moves(): number {
         const pushedState = [...Array(this.bucketOne+1)].map(() => Array(this.bucketTwo+1).fill(false));
-        const queue: State[] = []
-        if (this.starterBucket === Bucket.One) {
-            queue.push(new State(1, this.bucketOne, 0))
-            pushedState[this.bucketOne][0] = true
-        } else {
-            queue.push(new State(1, 0, this.bucketTwo))
-            pushedState[0][this.bucketTwo] = true
-        }
+        const queue = [this.firstState()]
+        pushedState[queue[0].bucketOne][queue[0].bucketTwo] = true
 
         while (queue.length > 0) {
             const state = queue.pop()!
-            if (state.bucketOne === this.goal) {
-                this._goalBucket = Bucket.One
-                this._otherBucket = state.bucketTwo
-                return state.moves
-            } else if (state.bucketTwo === this.goal) {
-                this._goalBucket = Bucket.Two
-                this._otherBucket = state.bucketOne
-                return state.moves
+            const checkedGoal = this.checkGoal(state)
+            if (checkedGoal.isGoal) {
+                return checkedGoal.moves!
             }
 
-            const oneToTwo = Math.min(state.bucketOne, this.bucketTwo-state.bucketTwo)
-            const twoToOne = Math.min(state.bucketTwo, this.bucketOne-state.bucketOne)
-
-            const nextStates = [
-                new State(state.moves+1, this.bucketOne, state.bucketTwo),
-                new State(state.moves+1, 0, state.bucketTwo),
-                new State(state.moves+1, state.bucketOne, this.bucketTwo),
-                new State(state.moves+1, state.bucketOne, 0),
-                new State(state.moves+1, state.bucketOne-oneToTwo, state.bucketTwo+oneToTwo),
-                new State(state.moves+1, state.bucketOne+twoToOne, state.bucketTwo-twoToOne),
-            ]
-
-            for (const ns of nextStates) {
+            for (const ns of this.generateStates(state)) {
                 if (!pushedState[ns.bucketOne][ns.bucketTwo]) {
                     pushedState[ns.bucketOne][ns.bucketTwo] = true
                     queue.unshift(ns)
@@ -70,11 +47,35 @@ export class TwoBucket {
         return -1
     }
 
-    get goalBucket(): string {
-        return this._goalBucket!.name
+    private checkGoal(state: State): {isGoal: boolean, moves?: number} {
+        if (state.bucketOne === this.goal) {
+            this.goalBucket = Bucket.One.name
+            this.otherBucket = state.bucketTwo
+            return {isGoal: true, moves: state.moves}
+        } else if (state.bucketTwo === this.goal) {
+            this.goalBucket = Bucket.Two.name
+            this.otherBucket = state.bucketOne
+            return {isGoal: true, moves: state.moves}
+        }
+        return {isGoal: false}
     }
 
-    get otherBucket(): number {
-        return this._otherBucket!
+    private generateStates(state: State): State[] {
+        const oneToTwo = Math.min(state.bucketOne, this.bucketTwo-state.bucketTwo)
+        const twoToOne = Math.min(state.bucketTwo, this.bucketOne-state.bucketOne)
+        const nextMove = state.moves + 1
+        return [
+            new State(nextMove, this.bucketOne, state.bucketTwo),
+            new State(nextMove, 0, state.bucketTwo),
+            new State(nextMove, state.bucketOne, this.bucketTwo),
+            new State(nextMove, state.bucketOne, 0),
+            new State(nextMove, state.bucketOne-oneToTwo, state.bucketTwo+oneToTwo),
+            new State(nextMove, state.bucketOne+twoToOne, state.bucketTwo-twoToOne),
+        ]
+    }
+
+    private firstState(): State {
+        return this.starterBucket === Bucket.One ?
+            new State(1, this.bucketOne, 0) : new State(1, 0, this.bucketTwo)
     }
 }
