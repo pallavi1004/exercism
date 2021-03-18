@@ -1,7 +1,7 @@
 class Square {
     private isMine = false
     private adjacentMineCounts = 0
-    public value(): string {
+    public toString(): string {
         if (this.isMine) {
             return "*"
         } else {
@@ -44,25 +44,20 @@ export default class Minesweeper {
             })
         })
 
-        const ret = new Array<string>()
-        for (const squareRow of squares) {
-            ret.push(
-                squareRow.reduce((acc, s) => acc.concat(s.value()), "")
-            )
-        }
-        return ret
+        return squares.map((squareRow) => squareRow.join(''))
     }
 
     private static adjacentList(x: number, y: number, colsCount: number, rowsCount: number) : Coordinate[] {
         const ret = new Array<Coordinate>()
-        const diffs = [[-1,-1], [0,-1],[1,-1],[-1,0], [1,0], [-1,1], [0,1],[1,1]]
-        let dx, dy: number
-        for (const diff of diffs) {
-            dx = x + diff[0]
-            dy = y + diff[1]
-            if (0 <= dx && dx < colsCount
-                && 0 <= dy && dy < rowsCount) {
-                ret.push({x: dx, y: dy})
+        let targetX, targetY: number
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                targetY = y + dy
+                targetX = x + dx
+                if (0 <= targetX && targetX < colsCount
+                    && 0 <= targetY && targetY < rowsCount) {
+                    ret.push({x: targetX, y: targetY})
+                }
             }
         }
         return ret
