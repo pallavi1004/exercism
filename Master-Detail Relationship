@@ -1,0 +1,9 @@
+We create Master-Detail Relationship using Junction object in salesforce.
+Child record must have a associated parent
+Cascade record level security
+Cascade record deletion
+Roll-up summary fields can be established 
+Standard objects can not be detail object
+Standard object can be master object
+Maximum 2 master detail relationship can be created to a object
+Records can be re-parented.
