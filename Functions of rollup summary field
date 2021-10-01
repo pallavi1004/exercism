@@ -1,0 +1,5 @@
+List of functions of roll up summary field are as follows:
+Count:It calculates total number of related records.
+Sum:It totals values of selected fields
+Min:Displays lowest value
+Max:Displays highest value
