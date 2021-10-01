@@ -1,0 +1,9 @@
+"Hello World!" is a classic introductory exercise.
+It is tradition to start learning programming in new language with "Hello World!"
+
+
+Write program in core PHP which prints "Hello World!"
+
+<?php
+print("Hello World!");
+?>
