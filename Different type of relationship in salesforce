@@ -1,0 +1,5 @@
+Their are different types of relationship in salesforce which are:
+Master-detail relationship
+Lookup relationship
+Many-Many relationship
+Hierarchy relationship(we can not use this relationship)
